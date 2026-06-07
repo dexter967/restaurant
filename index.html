@@ -1,906 +1,377 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A premium heritage culinary experience rooted in the heart of Malabar — where time slows down." />
-  <title>The Heritage Table — A Malabar Culinary Journey</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ==========================================================================
-       1. GLOBAL RESET & BASE STYLES
-       ========================================================================== */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      background-color: #fbf9f4; /* Premium Warm Ivory Pastel Foundation */
-      color: #231912; /* Rich Dark Charcoal-Timber Text */
-      font-family: 'Poppins', sans-serif;
-      overflow-x: hidden;
-    }
-
-    body {
-      overflow-x: hidden;
-      width: 100%;
-    }
-
-    /* ==========================================================================
-       2. IMMERSIVE 3D KERALA DOOR ENTRANCE OVERLAY (Based on Reference Artwork)
-       ========================================================================== */
-    .door-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 99999;
-      background-color: #150c05; /* Deep rich fallback background shadow */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      perspective: 1500px; /* Provides depth for the 3D swinging action */
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 1.8s ease;
-    }
-
-    /* Ambient radiant lighting core revealed as doors pull apart */
-    .door-ambient-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60vw;
-      height: 80vh;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, rgba(21, 12, 5, 0) 70%);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1);
-      z-index: 2;
-    }
-
-    /* Heavy Archetypal Wooden Outer Architrave Frame */
-    .door-frame-outer {
-      position: relative;
-      width: 440px;
-      height: 86vh;
-      max-height: 880px;
-      background: #361f10;
-      border: 14px solid #24140a;
-      box-shadow: 
-        0 25px 60px rgba(0, 0, 0, 0.85),
-        inset 0 0 30px rgba(0, 0, 0, 0.9);
-      display: flex;
-      flex-direction: column;
-      z-index: 5;
-    }
-
-    /* Top Ornate Brass Bar Element mirroring your reference layout */
-    .door-frame-top {
-      height: 52px;
-      background: #2b190d;
-      border-bottom: 3px solid #1a0f08;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      color: #d4af37;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem;
-      letter-spacing: 3px;
-    }
-
-    .brass-accent-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #d4af37, transparent);
-      margin: 0 10px;
-      opacity: 0.6;
-    }
-
-    .door-perspective {
-      position: relative;
-      width: 100%;
-      flex: 1;
-      perspective: 1600px;
-    }
-
-    .door-wrapper {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-    }
-
-    /* Left & Right Moving Wooden Door Leafs */
-    .door-panel {
-      position: absolute;
-      top: 0;
-      width: 50%;
-      height: 100%;
-      background-color: #693c1c; /* Vibrant High-Chroma Kerala Teak */
-      background-image: 
-        linear-gradient(90deg, rgba(0,0,0,0.15) 0%, transparent 12%, transparent 88%, rgba(0,0,0,0.25) 100%),
-        repeating-linear-gradient(0deg, rgba(29,16,7,0.03) 0px, rgba(29,16,7,0.03) 2px, transparent 2px, transparent 4px);
-      box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.7);
-      transform-style: preserve-3d;
-      transition: transform 2s cubic-bezier(0.22, 1, 0.36, 1);
-      z-index: 10;
-    }
-
-    .door-left {
-      left: 0;
-      transform-origin: left center;
-      border-right: 1px solid #1f1108;
-    }
-
-    .door-right {
-      right: 0;
-      transform-origin: right center;
-      border-left: 1px solid #1f1108;
-    }
-
-    /* Multi-Tier Traditional Carved Beveled Trim Borders */
-    .wood-carving {
-      position: absolute;
-      left: 12%;
-      width: 76%;
-      height: 44%;
-      background: #5c3418;
-      border: 2px solid #4a2912;
-      box-shadow: 
-        inset 4px 4px 12px rgba(0, 0, 0, 0.6), 
-        inset -4px -4px 12px rgba(255, 255, 255, 0.05),
-        2px 2px 5px rgba(0,0,0,0.4);
-    }
-
-    .top-carving { 
-      top: 4%; 
-      border-radius: 24px 24px 4px 4px;
-    }
-    .bottom-carving { 
-      bottom: 4%; 
-      border-radius: 4px 4px 16px 16px;
-    }
-
-    /* Central Scalloped Wooden Joining Strip (Spine) */
-    .door-center-spine {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 24px;
-      height: 100%;
-      background: #4a2912;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      z-index: 15;
-      pointer-events: none;
-      transition: transform 1.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
-      transform-origin: left center;
-    }
-
-    .spine-stud {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 12px;
-      height: 12px;
-      background: #d4af37;
-      border-radius: 50%;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    }
-    .s1 { top: 10%; } .s2 { top: 35%; } .s3 { top: 65%; } .s4 { top: 90%; }
-
-    /* Custom Sculpted Intricate Brass Hardware Overlays */
-    .hardware-piece {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 20;
-      filter: drop-shadow(4px 6px 8px rgba(0,0,0,0.5));
-    }
-    .peacock-latch { right: 4px; }
-    .heavy-lockbox { left: 6px; }
-
-    /* Interactive User UI Cue */
-    .entrance-prompt {
-      position: absolute;
-      bottom: 5vh;
-      text-align: center;
-      color: #f7f4eb;
-      letter-spacing: 4px;
-      pointer-events: none;
-      z-index: 30;
-      transition: opacity 0.6s ease;
-    }
-
-    .prompt-sub {
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.72rem;
-      color: #d4af37;
-      text-transform: uppercase;
-    }
-
-    .prompt-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      font-size: 1.5rem;
-      margin-top: 5px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-    }
-
-    .prompt-line {
-      width: 40px;
-      height: 1px;
-      background: #d4af37;
-      margin: 15px auto 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .prompt-line::after {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: white;
-      animation: shimmer 2s infinite linear;
-    }
-
-    @keyframes shimmer {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-
-    /* --- STATES ACTIVATED VIA JAVASCRIPT ANIMATION EVENT --- */
-    .door-screen.is-open {
-      background-color: transparent;
-    }
-    .door-screen.is-open .door-left {
-      transform: rotateY(-120deg);
-    }
-    .door-screen.is-open .door-right {
-      transform: rotateY(120deg);
-    }
-    .door-screen.is-open .door-center-spine {
-      opacity: 0;
-      transform: translateX(-250%) rotateY(-40deg);
-    }
-    .door-screen.is-open .door-ambient-glow {
-      opacity: 1;
-    }
-    .door-screen.is-open .entrance-prompt {
-      opacity: 0;
-    }
-
-    /* ==========================================================================
-       3. MAIN HERITAGE WEBPAGE CONTENT LAYOUT
-       ========================================================================== */
-    .content-viewport {
-      opacity: 0;
-      transform: scale(0.97);
-      transition: opacity 1.6s cubic-bezier(0.25, 1, 0.3, 1), transform 1.6s cubic-bezier(0.25, 1, 0.3, 1);
-      visibility: hidden;
-      width: 100%;
-    }
-
-    .content-viewport.content-visible {
-      opacity: 1;
-      transform: scale(1);
-      visibility: visible;
-    }
-
-    /* Luxury Navigation System */
-    .luxury-nav {
-      position: fixed;
-      top: 0; left: 0; width: 100%;
-      z-index: 1000;
-      padding: 25px 50px;
-      background: linear-gradient(to bottom, #fbf9f4 75%, rgba(251,249,244,0));
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(138, 101, 56, 0.15);
-      padding-bottom: 15px;
-    }
-
-    .nav-brand {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      letter-spacing: 3px;
-      text-decoration: none;
-      color: #231912;
-    }
-
-    .nav-links a {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-decoration: none;
-      color: #231912;
-      margin-left: 35px;
-      transition: color 0.3s ease;
-      font-weight: 400;
-    }
-
-    .nav-links a:hover {
-      color: #8a6538;
-    }
-
-    /* Hero Section Component */
-    .hero-section {
-      position: relative;
-      height: 100vh;
-      min-height: 700px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 24px;
-      text-align: center;
-      background: radial-gradient(circle at center, #fbf9f4 0%, #eddcc9 100%);
-    }
-
-    .hero-text-container {
-      max-width: 850px;
-      z-index: 10;
-    }
-
-    .hero-label {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 6px;
-      color: #8a6538;
-      display: inline-block;
-      margin-bottom: 25px;
-      font-weight: 400;
-    }
-
-    .hero-headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 5.5vw, 4.6rem);
-      font-weight: 400;
-      line-height: 1.15;
-      color: #231912;
-      margin-bottom: 35px;
-    }
-
-    .hero-headline em {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      color: #8a6538;
-    }
-
-    .hero-subtext {
-      font-size: 1.05rem;
-      font-weight: 300;
-      line-height: 1.8;
-      max-width: 620px;
-      margin: 0 auto 45px;
-      color: #544338;
-    }
-
-    /* Refined Generic Button styling */
-    .btn-primary {
-      display: inline-block;
-      padding: 16px 36px;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-decoration: none;
-      background-color: #231912;
-      color: #fbf9f4;
-      transition: background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .btn-primary:hover {
-      background-color: #8a6538;
-    }
-
-    /* ==========================================================================
-       4. HIGH-PERFORMANCE SCROLL-ANIMATION PROPERTIES
-       ========================================================================== */
-    .scroll-anim-box {
-      opacity: 0;
-      will-change: transform, opacity;
-      transition-duration: 1.4s;
-      transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); /* Silk smooth cubic curves */
-    }
-
-    /* Injected immediately via IntersectionObserver engine on scroll cross */
-    .scroll-anim-box.reveal-active {
-      opacity: 1;
-      transform: none !important;
-    }
-
-    .fade-up {
-      transform: translateY(60px);
-    }
-
-    .fade-left {
-      transform: translateX(60px);
-    }
-
-    .scale-up-reveal {
-      opacity: 0;
-      transform: scale(0.96);
-    }
-    .scale-up-reveal.reveal-active {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* Story Section (Double Pastel Color Inversion Style) */
-    .story-section {
-      padding: 150px 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .section-tag {
-      font-size: 0.75rem;
-      letter-spacing: 4px;
-      color: #8a6538;
-      font-weight: 500;
-      display: block;
-      margin-bottom: 15px;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 3.8vw, 3.2rem);
-      font-weight: 400;
-      line-height: 1.25;
-      margin-bottom: 30px;
-    }
-
-    .section-title em {
-      font-family: 'Cormorant Garamond', serif;
-      color: #8a6538;
-    }
-
-    .body-text {
-      font-size: 0.95rem;
-      line-height: 1.8;
-      color: #544338;
-      margin-bottom: 20px;
-      font-weight: 300;
-    }
-
-    .body-text.emph {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.45rem;
-      font-style: italic;
-      color: #8a6538;
-      border-left: 2px solid #8a6538;
-      padding-left: 24px;
-      margin-top: 35px;
-    }
-
-    /* Structural Framework Placeholder representing regional craft setups */
-    .image-frame-decor {
-      width: 100%;
-      height: 460px;
-      background-color: #eddcc9;
-      border: 1px solid rgba(138,101,56,0.2);
-      padding: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .heritage-motif-box {
-      border: 1px solid #8a6538;
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      color: #8a6538;
-    }
-    .heritage-motif-box span { font-size: 1.6rem; margin-bottom: 12px; }
-    .heritage-motif-box p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; letter-spacing: 3px; text-transform: uppercase; }
-
-    /* Menu Showcase Section (Deep Pastel Inversion) */
-    .menu-section {
-      background-color: #231912; /* Dark Timber Canvas */
-      color: #fbf9f4;
-      padding: 140px 24px;
-      width: 100%;
-    }
-
-    .menu-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .center-header {
-      text-align: center;
-      margin-bottom: 80px;
-    }
-
-    .center-header .section-title {
-      color: #fbf9f4;
-    }
-
-    .menu-luxury-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 40px;
-    }
-
-    .menu-luxury-card {
-      background: rgba(251, 249, 244, 0.03);
-      border: 1px solid rgba(251, 249, 244, 0.06);
-      padding: 45px 40px;
-      position: relative;
-      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease;
-    }
-
-    .menu-luxury-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(138, 101, 56, 0.5);
-    }
-
-    .card-meta {
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      color: #8a6538;
-      margin-bottom: 18px;
-    }
-
-    .item-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.45rem;
-      font-weight: 400;
-      margin-bottom: 15px;
-      color: #fbf9f4;
-    }
-
-    .item-desc {
-      font-size: 0.88rem;
-      line-height: 1.75;
-      color: #bfaea3;
-      font-weight: 300;
-    }
-
-    /* Geometric Accent Corners triggered on card hover */
-    .card-accent-border {
-      position: absolute;
-      bottom: 0; right: 0;
-      width: 0; height: 0;
-      border-bottom: 2px solid #8a6538;
-      border-right: 2px solid #8a6538;
-      transition: width 0.4s ease, height 0.4s ease;
-    }
-    .menu-luxury-card:hover .card-accent-border {
-      width: 25px; height: 25px;
-    }
-
-    /* Elegant Editorial Footer Assembly */
-    .luxury-footer {
-      background-color: #170d06;
-      color: #bfaea3;
-      padding: 90px 24px;
-      text-align: center;
-      width: 100%;
-    }
-
-    .footer-brand {
-      font-family: 'Playfair Display', serif;
-      color: #fbf9f4;
-      letter-spacing: 3px;
-      font-size: 1.25rem;
-      margin-bottom: 25px;
-    }
-
-    .footer-address {
-      font-size: 0.88rem;
-      line-height: 1.8;
-      letter-spacing: 1px;
-      font-weight: 300;
-    }
-
-    .footer-divider {
-      width: 60px; height: 1px;
-      background: rgba(138,101,56,0.3);
-      margin: 35px auto;
-    }
-
-    .copyright {
-      font-size: 0.75rem;
-      opacity: 0.4;
-      letter-spacing: 1px;
-    }
-
-    /* Responsive Layout Adaptations */
-    @media (max-width: 768px) {
-      .grid-container {
-        grid-template-columns: 1fr;
-        gap: 45px;
-      }
-      .luxury-nav {
-        padding: 20px 24px;
-      }
-      .nav-links {
-        display: none; /* Keeps mobile profile clean and highly minimal */
-      }
-      .door-frame-outer {
-        width: 90%;
-        height: 80vh;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kerala Culinary Heritage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Reset & Minimal Base --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0c0806; /* Deep, warm charcoal/wood base */
+            font-family: 'Outfit', sans-serif;
+            color: #f4ece6;
+        }
+
+        /* --- 3D Canvas Layer --- */
+        #door-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* --- Minimal Aesthetic Restaurant Layout --- */
+        #main-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: scale(0.98); /* Subtle scale for elegant reveal */
+            background: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%231a110d" fill-opacity="0.4" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="3"/%3E%3Ccircle cx="13" cy="13" r="3"/%3E%3C/g%3E%3C/svg%3E') #0c0806;
+            display: flex;
+            flex-direction: column;
+            z-index: 1;
+        }
+
+        /* --- Clean Navigation --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 80px;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 5;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #e5c158; /* Muted aesthetic gold */
+        }
+
+        .logo span {
+            color: #f4ece6;
+            margin-left: 8px;
+            font-weight: 400;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 50px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #a89f98;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.4s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: #e5c158;
+        }
+
+        .cta-button {
+            background: transparent;
+            color: #e5c158;
+            border: 1px solid #e5c158;
+            padding: 10px 30px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .cta-button:hover {
+            background: #e5c158;
+            color: #0c0806;
+        }
+
+        /* --- Hero Content Area --- */
+        .hero-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding-left: 120px;
+            margin-top: 40px;
+        }
+
+        .hero-container {
+            max-width: 600px;
+        }
+
+        .sub-title {
+            font-family: 'Outfit', sans-serif;
+            color: #a89f98;
+            font-size: 12px;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 72px;
+            line-height: 1.05;
+            margin-bottom: 30px;
+            font-weight: 400;
+            color: #f4ece6;
+        }
+
+        .description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #8c837b;
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        /* --- Elegant Action Tiles --- */
+        .action-tiles {
+            display: flex;
+            gap: 30px;
+        }
+
+        .tile {
+            border-top: 1px solid #33251d;
+            padding-top: 20px;
+            width: 200px;
+        }
+
+        .tile h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            color: #e5c158;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .tile p {
+            font-size: 13px;
+            color: #8c837b;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+    </style>
 </head>
 <body>
 
-  <div id="doorScreen" class="door-screen" role="button" aria-label="Enter the Experience" tabindex="0">
-    
-    <div class="door-ambient-glow"></div>
+    <canvas id="door-canvas"></canvas>
 
-    <div class="door-frame-outer">
-      
-      <div class="door-frame-top">
-        <span class="brass-accent-line"></span>
-        <div class="brass-center-emblem">✦ TRADITION ✦</div>
-        <span class="brass-accent-line"></span>
-      </div>
+    <main id="main-content">
+        <header class="navbar">
+            <div class="logo">OOTUPURA<span>KITCHEN</span></div>
+            <nav class="nav-menu">
+                <a href="#home" class="nav-item active">Home</a>
+                <a href="#menu" class="nav-item">Our Menu</a>
+                <a href="#heritage" class="nav-item">Heritage</a>
+                <a href="#contact" class="nav-item">Find Us</a>
+            </nav>
+            <button class="cta-button">Reserve a Table</button>
+        </header>
 
-      <div class="door-perspective">
-        <div class="door-wrapper">
-
-          <div class="door-panel door-left" id="doorLeft">
-            <div class="wood-carving top-carving"></div>
-            <div class="wood-carving bottom-carving"></div>
-            
-            <div class="hardware-piece peacock-latch">
-              <svg viewBox="0 0 100 100" width="68" height="68">
-                <circle cx="50" cy="50" r="45" fill="none" stroke="#d4af37" stroke-width="1.2" opacity="0.6"/>
-                <path d="M45 72 C40 57, 35 47, 35 37 C35 27, 45 22, 48 17" fill="none" stroke="#c59b27" stroke-width="2.5" stroke-linecap="round"/>
-                <ellipse cx="52" cy="57" rx="14" ry="17" fill="#b3861b"/>
-                <path d="M55 47 Q75 32 85 22 M57 54 Q82 47 90 37 M55 62 Q80 67 88 62" stroke="#d4af37" stroke-width="2" fill="none"/>
-                <circle cx="85" cy="22" r="2.5" fill="#ffd700"/>
-                <circle cx="90" cy="37" r="2.5" fill="#ffd700"/>
-                <circle cx="88" cy="62" r="2.5" fill="#ffd700"/>
-                <circle cx="48" cy="15" r="3.5" fill="#ffd700"/>
-                <circle cx="36" cy="34" r="2" fill="#000"/>
-              </svg>
+        <section class="hero-section">
+            <div class="hero-container">
+                <h2 class="sub-title">Authentic Kerala Culinary Art</h2>
+                <h1 class="main-title">Taste The Tradition</h1>
+                <p class="description">Step into a world of culturally bonded flavors. We bring the sacred recipes of Kerala's heritage directly to your plate in a serene, simple, and elegant dining experience.</p>
+                <div class="action-tiles">
+                    <div class="tile">
+                        <h3>The Sadhya</h3>
+                        <p>A traditional feast served on vibrant banana leaves.</p>
+                    </div>
+                    <div class="tile">
+                        <h3>Malabar Spices</h3>
+                        <p>Rich, aromatic coastal curries and slow-cooked roasts.</p>
+                    </div>
+                </div>
             </div>
-          </div>
+        </section>
+    </main>
 
-          <div class="door-center-spine" id="centerSpine">
-            <div class="spine-stud s1"></div>
-            <div class="spine-stud s2"></div>
-            <div class="spine-stud s3"></div>
-            <div class="spine-stud s4"></div>
-          </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
-          <div class="door-panel door-right" id="doorRight">
-            <div class="wood-carving top-carving"></div>
-            <div class="wood-carving bottom-carving"></div>
+    <script>
+        // --- Hyper-Realistic 3D Door Engine ---
+        const canvas = document.querySelector('#door-canvas');
+        const scene = new THREE.Scene();
+
+        // Warm, dim restaurant-style fog
+        scene.fog = new THREE.FogExp2(0x0c0806, 0.25);
+
+        // Camera positioning setup
+        const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 4.5); 
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        // --- Realistic Restaurant Lighting ---
+        const ambientLight = new THREE.AmbientLight(0xfff0e6, 0.3); // Warm white ambient
+        scene.add(ambientLight);
+
+        // Soft spotlight focusing on the center split of the door
+        const doorSpotlight = new THREE.SpotLight(0xffe6cc, 1.5, 10, Math.PI / 4, 0.5, 1);
+        doorSpotlight.position.set(0, 3, 4);
+        doorSpotlight.castShadow = true;
+        scene.add(doorSpotlight);
+
+        const fillLight = new THREE.DirectionalLight(0xd4af37, 0.3); // Golden fill
+        fillLight.position.set(-5, 0, 2);
+        scene.add(fillLight);
+
+        // --- Realistic Textures ---
+        function createRealisticWood() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024; canvas.height = 1024;
+            const ctx = canvas.getContext('2d');
             
-            <div class="hardware-piece heavy-lockbox">
-              <svg viewBox="0 0 80 110" width="58" height="80">
-                <rect x="5" y="5" width="70" height="100" rx="4" fill="#8c6617" stroke="#d4af37" stroke-width="2"/>
-                <rect x="12" y="12" width="56" height="86" fill="none" stroke="#b3861b" stroke-width="1" stroke-dasharray="3 3"/>
-                <circle cx="40" cy="45" r="16" fill="none" stroke="#ffd700" stroke-width="3.5"/>
-                <circle cx="40" cy="25" r="6" fill="#ffd700"/>
-                <circle cx="40" cy="78" r="4" fill="#1a0d00"/>
-                <path d="M37 81 L43 81 L41 92 L39 92 Z" fill="#1a0d00"/>
-                <circle cx="12" cy="12" r="2" fill="#ffd700"/><circle cx="68" cy="12" r="2" fill="#ffd700"/>
-                <circle cx="12" cy="98" r="2" fill="#ffd700"/><circle cx="68" cy="98" r="2" fill="#ffd700"/>
-              </svg>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-
-    <div class="entrance-prompt">
-      <p class="prompt-sub">Heritage Resto-Café</p>
-      <h2 class="prompt-title">Touch to Step Inside</h2>
-      <div class="prompt-line"></div>
-    </div>
-  </div>
-
-
-  <main id="mainContent" class="content-viewport">
-    
-    <nav class="luxury-nav">
-      <div class="nav-container">
-        <a href="#" class="nav-brand">THE HERITAGE TABLE</a>
-        <div class="nav-links">
-          <a href="#story">Our Roots</a>
-          <a href="#menu">The Kitchen</a>
-          <a href="#visit">Find Us</a>
-        </div>
-      </div>
-    </nav>
-
-    <section class="hero-section">
-      <div class="hero-text-container">
-        <div class="scroll-anim-box fade-up">
-          <span class="hero-label">Kozhikode • Malabar Coast</span>
-        </div>
-        <div class="scroll-anim-box scale-up-reveal">
-          <h1 class="hero-headline">Where Time Softens & <em>Flavours Speak</em></h1>
-        </div>
-        <div class="scroll-anim-box fade-up">
-          <p class="hero-subtext">A deeply rooted coastal dining room executing ancestral culinary preparations inside an environment of unhurried elegance.</p>
-        </div>
-        <div class="scroll-anim-box fade-up">
-          <a href="#menu" class="btn-primary">Explore The Menu</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="story" class="story-section">
-      <div class="grid-container">
-        
-        <div class="story-text scroll-anim-box fade-up">
-          <span class="section-tag">OUR STORY</span>
-          <h2 class="section-title">An unhurried ceremony of <em>spices & hospitality</em></h2>
-          <p class="body-text">Every custom seasoning mixture passing through our stone hearth mortar brings forward centuries of trade, local cultivation, and family secrets. Heavily inspired by old rain-washed courtyard mansions of North Kerala, our space balances heritage with modern stillness.</p>
-          <p class="body-text emph">"We believe there is no hurry in the modern world that a well-cooked plate and a hot glass of amber Sulaimani tea cannot mend."</p>
-        </div>
-
-        <div class="story-visual scroll-anim-box fade-left">
-          <div class="image-frame-decor">
-            <div class="heritage-motif-box">
-              <span>✦</span>
-              <p>Atithi Devo Bhava</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="menu" class="menu-section">
-      <div class="menu-container">
-        
-        <div class="center-header scroll-anim-box fade-up">
-          <span class="section-tag">FROM THE HEARTH</span>
-          <h2 class="section-title">Signature Interpretations</h2>
-        </div>
-
-        <div class="menu-luxury-grid">
-          
-          <div class="menu-luxury-card scroll-anim-box fade-up">
-            <div class="card-meta"><span>01 / TRADITION</span></div>
-            <h3 class="item-name">Malabar Dum Biryani</h3>
-            <p class="item-desc">Premium short-grain aromatic rice layered meticulously with slow-marinated heritage ingredients, completely sealed inside clay vessels over glowing wood coals.</p>
-            <div class="card-accent-border"></div>
-          </div>
-
-          <div class="menu-luxury-card scroll-anim-box fade-up">
-            <div class="card-meta"><span>02 / CRAFTED SLOW</span></div>
-            <h3 class="item-name">Hand-Tossed Bread Profiles</h3>
-            <p class="item-desc">Feather-soft flatbread variations turned over an inverted hot cast iron hemisphere dome until perfectly blistered, delicate, and layered.</p>
-            <div class="card-accent-border"></div>
-          </div>
-
-          <div class="menu-luxury-card scroll-anim-box fade-up">
-            <div class="card-meta"><span>03 / BREWED REFRESHMENT</span></div>
-            <h3 class="item-name">Cardamom Sulaimani</h3>
-            <p class="item-desc">A local custom of clear local black tea infused softly with freshly smashed green pods, a cold spritz of lemon citrus, and amber sugarcane sugars.</p>
-            <div class="card-accent-border"></div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <footer id="visit" class="luxury-footer">
-      <div class="footer-inner">
-        <div class="footer-brand">THE HERITAGE TABLE</div>
-        <p class="footer-address">Nadakkavu, Kozhikode, Kerala — India<br>Reservations Open Daily: 11:00 AM — 11:00 PM</p>
-        <div class="footer-divider"></div>
-        <p class="copyright">© 2026 Heritage Resto-Café. Crafted for Understated Luxury.</p>
-      </div>
-    </footer>
-
-  </main>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      
-      const doorScreen = document.getElementById("doorScreen");
-      const mainContent = document.getElementById("mainContent");
-
-      // Check structural element safety presence
-      if (doorScreen && mainContent) {
-        
-        // 1. CINEMATIC OUTWARD ENTRY SWING ANIMATION TRANSITION
-        const executeEntranceOpening = () => {
-          // Trigger the high-performance CSS 3D matrix classes
-          doorScreen.classList.add("is-open");
-          
-          // Elevate hidden landing main website wrapper instantly into clear view
-          mainContent.classList.add("content-visible");
-          
-          // Disable interactive click pointer listeners instantly to enable underlying site navigation
-          doorScreen.style.pointerEvents = "none";
-          
-          // Thoroughly delete screen nodes from hardware layer processing once motion path stops
-          setTimeout(() => {
-            doorScreen.style.display = "none";
+            let grad = ctx.createLinearGradient(0, 0, 1024, 0);
+            grad.addColorStop(0, '#1f120a');
+            grad.addColorStop(0.5, '#2c1a0e');
+            grad.addColorStop(1, '#170c06');
+            ctx.fillStyle = grad; ctx.fillRect(0, 0, 1024, 1024);
             
-            // Instantly force immediate position checking for on-screen text animations
-            evaluateVisibleElements();
-          }, 2000); // Perfectly calibrated timing matching the door panel 2s travel transitions
-        };
-
-        // Attach action handles to viewport interaction bounds (including essential accessibility keys)
-        doorScreen.addEventListener("click", executeEntranceOpening);
-        doorScreen.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            executeEntranceOpening();
-          }
-        });
-      }
-
-      // 2. HIGH-PERFORMANCE INTERSECTION OBSERVER PIPELINE FOR SCROLL TEXT ANIMS
-      const trackingElements = document.querySelectorAll(".scroll-anim-box");
-
-      if ("IntersectionObserver" in window) {
-        const structuralScrollObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              // Target text elements expand, elevate, and enlarge beautifully upon entering view boundaries
-              entry.target.classList.add("reveal-active");
-              // Unobserve immediately once item has presented to maximize runtime processing loops
-              structuralScrollObserver.unobserve(entry.target);
+            // Subtle wood grains for hyper-realism
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            for (let i = 0; i < 1024; i += 3) {
+                if(Math.random() > 0.4) {
+                    ctx.fillRect(0, i, 1024, Math.random() * 2);
+                }
             }
-          });
-        }, {
-          root: null, // Default browser layout viewport box tracking
-          rootMargin: "0px 0px -10% 0px", // Triggers slightly before crossing edge limits for polished layout reveal
-          threshold: 0.05 // Fires immediately when any 5% bounding sector makes terminal crossing
+            return new THREE.CanvasTexture(canvas);
+        }
+        const woodTexture = createRealisticWood();
+
+        const doorMaterial = new THREE.MeshStandardMaterial({
+            map: woodTexture,
+            roughness: 0.6,
+            metalness: 0.05
         });
 
-        // Enlist trackable card sets into native observer loops safely
-        trackingElements.forEach(element => {
-          structuralScrollObserver.observe(element);
+        const brassMaterial = new THREE.MeshStandardMaterial({
+            color: 0xc2a053, // Aged brass/gold
+            roughness: 0.3,
+            metalness: 0.8
         });
-      } else {
-        // Fallback procedural utility loop execution for older browser architectures
-        window.addEventListener("scroll", evaluateVisibleElements);
-      }
 
-      function evaluateVisibleElements() {
-        trackingElements.forEach(element => {
-          const coordinates = element.getBoundingClientRect();
-          if (coordinates.top < window.innerHeight * 0.9) {
-            element.classList.add("reveal-active");
-          }
+        // --- Door Physics & Structure ---
+        const doorGroup = new THREE.Scene();
+        const doorWidth = 1.5;
+        const doorHeight = 3.4;
+        const doorDepth = 0.15;
+
+        // Left Door (Pivot on the far left)
+        const leftPivot = new THREE.Group();
+        leftPivot.position.set(-doorWidth, 0, 0);
+        const leftMesh = new THREE.Mesh(new THREE.BoxGeometry(doorWidth, doorHeight, doorDepth), doorMaterial);
+        leftMesh.position.set(doorWidth / 2, 0, 0);
+        leftPivot.add(leftMesh);
+
+        // Right Door (Pivot on the far right)
+        const rightPivot = new THREE.Group();
+        rightPivot.position.set(doorWidth, 0, 0);
+        const rightMesh = new THREE.Mesh(new THREE.BoxGeometry(doorWidth, doorHeight, doorDepth), doorMaterial);
+        rightMesh.position.set(-doorWidth / 2, 0, 0);
+        rightPivot.add(rightMesh);
+
+        // Brass center trim
+        const borderGeo = new THREE.BoxGeometry(0.04, doorHeight, 0.17);
+        const leftBorder = new THREE.Mesh(borderGeo, brassMaterial);
+        leftBorder.position.set(doorWidth - 0.02, 0, 0);
+        leftMesh.add(leftBorder);
+
+        const rightBorder = new THREE.Mesh(borderGeo, brassMaterial);
+        rightBorder.position.set(-doorWidth + 0.02, 0, 0);
+        rightMesh.add(rightBorder);
+
+        // Traditional Handles
+        const handleGeo = new THREE.TorusGeometry(0.1, 0.02, 16, 50);
+        const leftHandle = new THREE.Mesh(handleGeo, brassMaterial);
+        leftHandle.position.set(doorWidth - 0.2, 0, 0.1);
+        leftMesh.add(leftHandle);
+
+        const rightHandle = new THREE.Mesh(handleGeo, brassMaterial);
+        rightHandle.position.set(-doorWidth + 0.2, 0, 0.1);
+        rightMesh.add(rightHandle);
+
+        scene.add(leftPivot);
+        scene.add(rightPivot);
+
+        // --- Inward Opening Animation Timeline ---
+        const tl = gsap.timeline({
+            onComplete: () => {
+                canvas.style.display = 'none'; // Clear WebGL context for UI interaction
+            }
         });
-      }
-    });
-  </script>
+
+        // 1. Camera pushes forward *into* the restaurant
+        tl.to(camera.position, {
+            z: 0.8, // Moves deeply forward past the threshold
+            duration: 5.0,
+            ease: "power2.inOut"
+        }, 0);
+
+        // 2. DOORS OPEN INWARD (Negative rotation on Left, Positive on Right)
+        tl.to(leftPivot.rotation, {
+            y: -Math.PI * 0.6, // Swings away from camera into the screen
+            duration: 3.8,
+            ease: "sine.inOut"
+        }, 1.0);
+
+        tl.to(rightPivot.rotation, {
+            y: Math.PI * 0.6, // Swings away from camera into the screen
+            duration: 3.8,
+            ease: "sine.inOut"
+        }, 1.0);
+
+        // 3. Webpage UI fades in seamlessly behind the opening doors
+        tl.to("#main-content", {
+            opacity: 1,
+            scale: 1,
+            duration: 3.5,
+            ease: "power2.out"
+        }, 1.5);
+
+        // --- Render Loop ---
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // --- Resize Handler ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 </html>
